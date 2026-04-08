@@ -133,6 +133,7 @@ def score_final(q, buzzed = False):
 
 # STEP 7: ALLOW USERS TO "QUIT" WHEN THEY ARE DONE PLAYING
 
+
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
 def play_game(file):
     questions = load_questions(file)
