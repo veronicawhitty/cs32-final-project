@@ -40,8 +40,12 @@ def load_questions(file):
             question_text = row["Question Text"]
             if "(*)" in question_text: # (*) is the common symbol used in Quizbowl to indicate a "power region," so I also utilize it in my database
                 # Something here
+                power_index = question_text.index("(*)")
+                question_text_clean = question_text.replace("(*)", "")
             else:
                 # Something similar here
+                power_index = len(question_text)
+                question_text_clean = question_text
                 # We should probably add whatever we do to powers to the "questions" dictionary for proper storage??
 
     return questions
