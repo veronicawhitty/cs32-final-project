@@ -68,13 +68,16 @@ def ask_question(question):
     current_word_index = 0
     try:
         while current_word_index < len(words):
+            print(words[current_word_index])
+            time.sleep(0.5)
+            current_word_index += 1
             # something
     except KeyboardInterrupt: # THIS IS HOW WE INTERRUPT!! Takes Ctrl+C as the default trigger mechanism.
         print("\n\n[BUZZ!]") # Tells the user they're buzzing
-        return #something here
+        return mid_question_buzz(question, current_word_index, words)
 
     print("\n") # Space things out
-    return # something
+    return
 
 
 # STEP 4: CREATE A FUNCTION TO CHECK THE USER'S ANSWER
@@ -90,7 +93,7 @@ def check_answer(user_answer, answers, prompts):
 
 
 # STEP 5: FIGURE OUT MID-QUESTION BUZZING (& SCORING??)
-def mid_question_buzz(something here):
+def mid_question_buzz(question, current_word_index, words):
     # Estimate character index for power scoring
     location_when_buzzed = 0
     for i in range(current_word_index):
@@ -107,8 +110,8 @@ def mid_question_buzz(something here):
             print("Prompt: please be more specific.")
             continue
         else:
-            print(f{"Wrong. The correct answer was: {q['answers'][0]\n"})
-            return 0
+            print("Incorrect. Continuing to read the question....\n")
+            break
 
 
 # STEP 6: FIURE OUT END-OF-QUESTION
