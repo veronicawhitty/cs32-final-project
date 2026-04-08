@@ -68,7 +68,7 @@ def ask_question(question):
     current_word_index = 0
     try:
         while current_word_index < len(words):
-            print(words[current_word_index])
+            print(words[current_word_index]).flush
             time.sleep(0.5)
             current_word_index += 1
             # something
