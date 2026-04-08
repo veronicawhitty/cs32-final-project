@@ -5,6 +5,7 @@ import csv # To read our question database
 import random # For question selection
 import time # For incremental reading and "waiting" functionality
 
+
 # STEP 1: LOAD QUESTIONS IN FROM THE CSV DATABASE
 # Load in our questions from the csv file "questions.csv"
 def load_questions(file):
@@ -60,6 +61,7 @@ def standardize(text):
             clean_text += " "
     return # I don't know what to return here just yet??
 
+
 # STEP 3: ASK QUESTIONS TO USER INCREMENTALLY (WORD-BY-WORD)
 def ask_question(question):
     words = question["text"].split()
@@ -74,6 +76,7 @@ def ask_question(question):
     print("\n") # Space things out
     return # something
 
+
 # STEP 4: CREATE A FUNCTION TO CHECK THE USER'S ANSWER
 def check_answer(user_answer, answers, prompts):
     user_answer = standardize(user_answer)
@@ -85,16 +88,78 @@ def check_answer(user_answer, answers, prompts):
                 return "prompt"
             return "incorrect" # (if it's not a correct answer or a prompt, effectively an "else")
 
+
 # STEP 5: FIGURE OUT MID-QUESTION BUZZING (& SCORING??)
 def mid_question_buzz(something here):
-    
+    # Estimate character index for power scoring
+    location_when_buzzed = 0
+    for i in range(current_word_index):
+        location_when_buzzed += len #something + 1
+
+    # Ask the player for their answer after they buzz
+    user_answer =
+    result = check_answer(user_answer, q["answers"], q["prompts"])
+    while True:
+        if result == "correct":
+            print("Correct! +10 points.\n")
+            return 10 # 10 points!
+        elif result == "prompt":
+            print("Prompt: please be more specific.")
+            continue
+        else:
+            print(f{"Wrong. The correct answer was: {q['answers'][0]\n"})
+            return 0
+
 
 # STEP 6: FIURE OUT END-OF-QUESTION
+def score_final(q, buzzed = False):
+    while True:
+        user_answer = #something
+        result = check_answer(user_answer, q{"answers"}, q{"prompts"})
+        if result == "correct":
+            print("Correct! +10 points.\n")
+            return 10 # 10 points!
+        elif result == "prompt":
+            print("Prompt: please be more specific.")
+            continue
+        else:
+            print(f{"Wrong. The correct answer was: {q['answers'][0]\n"})
+            return 0
+
 
 # STEP 7: ALLOW USERS TO "QUIT" WHEN THEY ARE DONE PLAYING
 
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
-# def play_game():
+def play_game(file):
+    questions = load_questions(file)
+    score = 0
+
+    # Something here introducing the rules of the game
+    print("\n\nWelcome to Python Terminal Protobowl: Harvard Edition!\n")
+    print("RULES OF THE GAME:")
+    print("Press Ctrl+C to buzz during a question.")
+    print("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
+    print("In order to end the game.....") #Revise once I figure out how to trigger game end successfully!!
+
+    # Make python give the user some time to read the rules and get ready
+    time.sleep(5)
+    print('Beginning game in 5....')
+    time.sleep(1)
+    print('....4....')
+    time.sleep(1)
+    print('....3....')
+    time.sleep(1)
+    print('....2....')
+    time.sleep(1)
+    print('....1....')
+    time.sleep(1)
+    print('BEGINNING GAME NOW!\n')
+    time.sleep(.5) # Pause so user can mentally prepare lol
+
+    while True:
+        question = random.choice(questions)
+        p
+
 # Input will ultimately be the csv file to run
 if __name__ == "__main__":
     play_game("questions.csv") # Use the imported question database CSV
