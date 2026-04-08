@@ -24,12 +24,10 @@ def load_questions(file):
                 answer = answer.strip()
                 if answer:
                     answers.append(answer) # Figure out a way to standardize the answer in Step 2
-
             prompts = []
 
             if row["Prompts"]:
                 split_prompts = row["Prompts"].split(";")
-
                 for prompt in split_prompts:
                     prompt = prompt.strip()
                     if prompt:
@@ -63,10 +61,33 @@ def standardize(text):
     return # I don't know what to return here just yet??
 
 # STEP 3: ASK QUESTIONS TO USER INCREMENTALLY (WORD-BY-WORD)
+def ask_question(question):
+    words = question["text"].split()
+    current_word_index = 0
+    try:
+        while current_word_index < len(words):
+            # something
+    except KeyboardInterrupt: # THIS IS HOW WE INTERRUPT!! Takes Ctrl+C as the default trigger mechanism.
+        print("\n\n[BUZZ!]") # Tells the user they're buzzing
+        return #something here
+
+    print("\n") # Space things out
+    return # something
 
 # STEP 4: CREATE A FUNCTION TO CHECK THE USER'S ANSWER
+def check_answer(user_answer, answers, prompts):
+    user_answer = standardize(user_answer)
+    for answer in answers:
+        if answer == user_answer or answer in user_answer:
+            return "correct"
+        for prompt in prompts:
+            if prompt == user_answer or prompt in user_answer:
+                return "prompt"
+            return "incorrect" # (if it's not a correct answer or a prompt, effectively an "else")
 
 # STEP 5: FIGURE OUT MID-QUESTION BUZZING (& SCORING??)
+def mid_question_buzz(something here):
+    
 
 # STEP 6: FIURE OUT END-OF-QUESTION
 
