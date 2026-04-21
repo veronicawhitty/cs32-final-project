@@ -20,6 +20,7 @@ def load_questions(file):
             # Split answer options by semicolon (what I use in the CSV file to differentiate
             # between answers in circumstance where they are MULTIPLE acceptable answers)
             split_answers = row["Answer"].split(";")
+            display_answers = split_answers[0].strip() # For our correct answer reveal later down the line
 
             for answer in split_answers:
                 answer = answer.strip()
@@ -48,7 +49,8 @@ def load_questions(file):
                 "text": question_text_clean,
                 "answers": answers,
                 "prompts": prompts,
-                "power_index": power_index
+                "power_index": power_index,
+                "display_answers": display_answers
             })
 
     return questions
@@ -112,10 +114,10 @@ def mid_question_buzz(question, current_word_index, words):
         result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
-                print(f"POWER! +15 points. The correct answer was {question['answers'][0]}.\n")
+                print(f"POWER! +15 points. The correct answer was {question['display_answers'][0]}.\n")
                 return 15 # 15 points!
             else:
-                print(f"Correct! +10 points. The correct answer was {question['answers'][0]}.\n")
+                print(f"Correct! +10 points. The correct answer was {question['display_answers'][0]}.\n")
                 return 10 # 10 points!
         elif result == "prompt":
             print("PROMPT! Please be more specific.")
@@ -131,7 +133,7 @@ def score_final(question):
         user_answer = quit_input("Final answer: ").strip()
         result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
-            print(f"Correct! +10 points. The correct answer was {question['answers'][0]}.\n")
+            print(f"Correct! +10 points. The correct answer was {question['display_answers'][0]}.\n")
             return 10 # 10 points!
         elif result == "prompt":
             print("Prompt: please be more specific.")
