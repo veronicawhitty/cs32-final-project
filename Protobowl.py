@@ -150,6 +150,26 @@ def quit_input(prompt_text = ""):
         exit(0) # Stop the program
     return user_input
 
+# HALF STEP: CHATGPT-ASSISTED DEMO-MODE FOR CODE EXPLANATION VIDEO!!
+def select_demo_questions(questions):
+    demo_targets = [
+        "matt damon",
+        "robert lowell",
+        "pigeons",
+        "cabot house",
+        "cs32"
+    ]
+
+    demo_questions = []
+
+    for target in demo_targets:
+        for question in questions:
+            if target in question["answers"]:
+                demo_questions.append(question)
+                break
+
+    return demo_questions
+
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
 def play_game(file):
     random.seed(4) # Same question order every run (for easier debugging!!)
@@ -188,4 +208,4 @@ def play_game(file):
 
 # Input will ultimately be the csv file to run
 if __name__ == "__main__":
-    play_game("questions.csv") # Use the imported question database CSV
+    play_game("questions.csv", demo = True) # Use the imported question database CSV
