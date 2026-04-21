@@ -70,16 +70,17 @@ def standardize(text):
 def ask_question(question):
     words = question["text"].split()
     current_word_index = 0
-    try:
-        while current_word_index < len(words):
+    while current_word_index < len(words):
+        try:
             print(words[current_word_index], end=" ", flush = True)
             # See if we can make a boolean flush
             time.sleep(0.5)
             current_word_index += 1
-            # something
-    except KeyboardInterrupt: # THIS IS HOW WE INTERRUPT!! Takes Ctrl+C as the default trigger mechanism.
-        print("\n\n[BUZZ!]") # Tells the user they're buzzing
-        return mid_question_buzz(question, current_word_index, words)
+
+        except KeyboardInterrupt: # THIS IS HOW WE INTERRUPT!! Takes Ctrl+C as the default trigger mechanism.
+            print("\n\n[BUZZ!]") # Tells the user they're buzzing
+            if points is not None: # i.e. if it's a correct answer
+                return points # This should allow us to buzz infinitely until we get the answer correct or reach the final answer?
 
     print("\n") # Space things out
     return score_final(question)
@@ -120,7 +121,7 @@ def mid_question_buzz(question, current_word_index, words):
             continue
         else:
             print("Incorrect. Continuing to read the question....\n")
-            break
+            return None
 
     # Resume printing the question from the buzz point
     while current_word_index < len(words):
