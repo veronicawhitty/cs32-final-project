@@ -106,7 +106,7 @@ def mid_question_buzz(question, current_word_index, words):
 
     # Ask the player for their answer after they buzz
     while True:
-        user_answer = input("Your answer: ").strip()
+        user_answer = quit_input("Your answer: ").strip()
         result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
@@ -135,7 +135,7 @@ def mid_question_buzz(question, current_word_index, words):
 # STEP 6: FIURE OUT END-OF-QUESTION
 def score_final(question, buzzed = False):
     while True:
-        user_answer = input("Final answer: ").strip()
+        user_answer = quit_input("Final answer: ").strip()
         result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
             print("Correct! +10 points.\n")
@@ -149,7 +149,13 @@ def score_final(question, buzzed = False):
 
 
 # STEP 7: ALLOW USERS TO "QUIT" WHEN THEY ARE DONE PLAYING
-
+def quit_input(prompt_text = ""):
+    # Get user input AND exit is they type 'quit'
+    user_input = input(prompt_text).strip()
+    if user_input.lower() in ["quit"]:
+        print("Exiting game. Goodbye!") # Should we print the score here? CAN we print the score here? IDK.
+        exit(0) # Stop the program
+    return user_input
 
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
 def play_game(file):
@@ -161,7 +167,7 @@ def play_game(file):
     print("RULES OF THE GAME:")
     print("Press Ctrl+C to buzz during a question.")
     print("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
-    print("In order to end the game.....") #Revise once I figure out how to trigger game end successfully!!
+    print("In order to end the game, buzz in to any question and type 'quit'.\n") #Revise once I figure out how to trigger game end successfully!!
 
     # Make python give the user some time to read the rules and get ready
     time.sleep(5)
