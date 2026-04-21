@@ -82,7 +82,7 @@ def ask_question(question):
         return mid_question_buzz(question, current_word_index, words)
 
     print("\n") # Space things out
-    return
+    return score_final(question)
 
 
 # STEP 4: CREATE A FUNCTION TO CHECK THE USER'S ANSWER
