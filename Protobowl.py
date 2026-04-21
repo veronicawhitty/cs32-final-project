@@ -167,7 +167,11 @@ def play_game(file):
 
     while True:
         question = random.choice(questions)
-        p
+        # Could we maybe make it so the same question can't randomly be chosen twice in a row? IDK how to do that necessarily -- seeding??
+        points = ask_question(question)
+        score += points
+        print(f"Score: {score}\n")
+        time.sleep(1)
 
 # Input will ultimately be the csv file to run
 if __name__ == "__main__":
