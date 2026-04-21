@@ -20,7 +20,7 @@ def load_questions(file):
             # Split answer options by semicolon (what I use in the CSV file to differentiate
             # between answers in circumstance where they are MULTIPLE acceptable answers)
             split_answers = row["Answer"].split(";")
-            display_answers = split_answers[0].strip() # For our correct answer reveal later down the line
+            display_answers = split_answers.strip() # For our correct answer reveal later down the line
 
             for answer in split_answers:
                 answer = answer.strip()
