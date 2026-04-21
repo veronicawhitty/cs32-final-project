@@ -32,7 +32,7 @@ def load_questions(file):
                 for prompt in split_prompts:
                     prompt = prompt.strip()
                     if prompt:
-                        prompts.append(standardize(answer)) # Figure out a way to standardize the answer in Step 2
+                        prompts.append(standardize(prompt)) # Figure out a way to standardize the answer in Step 2
 
             # Handle (*) for power scoring
             question_text = row["Question Text"]
@@ -91,10 +91,10 @@ def check_answer(user_answer, answers, prompts):
     for answer in answers:
         if answer == user_answer or answer in user_answer:
             return "correct"
-        for prompt in prompts:
-            if prompt == user_answer or prompt in user_answer:
-                return "prompt"
-        return "incorrect" # (if it's not a correct answer or a prompt, effectively an "else")
+    for prompt in prompts:
+        if prompt == user_answer or prompt in user_answer:
+            return "prompt"
+    return "incorrect" # (if it's not a correct answer or a prompt, effectively an "else")
 
 
 # STEP 5: FIGURE OUT MID-QUESTION BUZZING (& SCORING??)
@@ -129,7 +129,7 @@ def mid_question_buzz(question, current_word_index, words):
         current_word_index += 1
     print("\n")
 
-    return score_final(question, buzzed = True, location_when_buzzed = location_when_buzzed)
+    return score_final(question)
 
 
 # STEP 6: FIURE OUT END-OF-QUESTION
@@ -144,7 +144,7 @@ def score_final(question, buzzed = False):
             print("Prompt: please be more specific.")
             continue
         else:
-            print(f"Wrong. The correct answer was: {q['answers'][0]}\n")
+            print(f"Wrong. The correct answer was: {question['answers'][0]}\n")
             return 0
 
 
