@@ -24,7 +24,7 @@ def load_questions(file):
             for answer in split_answers:
                 answer = answer.strip()
                 if answer:
-                    answers.append(answer) # Figure out a way to standardize the answer in Step 2
+                    answers.append(standardize(answer)) # Figure out a way to standardize the answer in Step 2
             prompts = []
 
             if row["Prompts"]:
@@ -32,7 +32,7 @@ def load_questions(file):
                 for prompt in split_prompts:
                     prompt = prompt.strip()
                     if prompt:
-                        prompts.appened(answer) # Figure out a way to standardize the answer in Step 2
+                        prompts.appened(standardize(answer)) # Figure out a way to standardize the answer in Step 2
 
             # Something here on the (*) for power scoring??
             # like....
@@ -59,7 +59,7 @@ def standardize(text):
             clean_text += character
         else:
             clean_text += " "
-    return # I don't know what to return here just yet??
+    return " ".join(clean_text.split()) # Remove extra spaces, too!
 
 
 # STEP 3: ASK QUESTIONS TO USER INCREMENTALLY (WORD-BY-WORD)
