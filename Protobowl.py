@@ -123,18 +123,9 @@ def mid_question_buzz(question, current_word_index, words):
             print("Incorrect. Continuing to read the question....\n")
             return None
 
-    # Resume printing the question from the buzz point
-    while current_word_index < len(words):
-        print(words[current_word_index], end=" ", flush=True)
-        time.sleep(0.3)
-        current_word_index += 1
-    print("\n")
-
-    return score_final(question)
-
 
 # STEP 6: FIURE OUT END-OF-QUESTION
-def score_final(question, buzzed = False):
+def score_final(question):
     while True:
         user_answer = quit_input("Final answer: ").strip()
         result = check_answer(user_answer, question["answers"], question["prompts"])
