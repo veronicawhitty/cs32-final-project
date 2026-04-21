@@ -79,6 +79,7 @@ def ask_question(question):
 
         except KeyboardInterrupt: # THIS IS HOW WE INTERRUPT!! Takes Ctrl+C as the default trigger mechanism.
             print("\n\n[BUZZ!]") # Tells the user they're buzzing
+            points = mid_question_buzz(question, current_word_index, words)
             if points is not None: # i.e. if it's a correct answer
                 return points # This should allow us to buzz infinitely until we get the answer correct or reach the final answer?
 
