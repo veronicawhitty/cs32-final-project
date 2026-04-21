@@ -124,7 +124,7 @@ def mid_question_buzz(question, current_word_index, words):
 
     # Resume printing the question from the buzz point
     while current_word_index < len(words):
-        print(words[current_word_index])
+        print(words[current_word_index], end=" ", flush=True)
         time.sleep(0.3)
         current_word_index += 1
     print("\n")
