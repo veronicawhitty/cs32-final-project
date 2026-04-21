@@ -76,7 +76,7 @@ def ask_question(question):
         try:
             print(words[current_word_index], end=" ", flush = True)
             # See if we can make a boolean flush
-            time.sleep(0.5)
+            time.sleep(0.3)
             current_word_index += 1
 
         except KeyboardInterrupt: # THIS IS HOW WE INTERRUPT!! Takes Ctrl+C as the default trigger mechanism.
@@ -173,7 +173,7 @@ def select_demo_questions(questions):
     return demo_questions
 
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
-def play_game(file, demo=True):
+def play_game(file, demo_mode = True):
     questions = load_questions(file)
     score = 0
 
@@ -199,7 +199,7 @@ def play_game(file, demo=True):
     print('BEGINNING GAME NOW!\n')
     time.sleep(.5) # Pause so user can mentally prepare lol
 
-    if demo:
+    if demo_mode:
         print("Running demo mode with a fixed set of showcase questions.\n")
         game_questions = select_demo_questions(questions)
     else:
@@ -215,4 +215,4 @@ def play_game(file, demo=True):
 
 # Input will ultimately be the csv file to run
 if __name__ == "__main__":
-    play_game("questions.csv", demo=False) # Use the imported question database CSV
+    play_game("questions.csv", demo_mode = True) # Use the imported question database CSV
