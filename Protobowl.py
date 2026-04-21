@@ -107,7 +107,7 @@ def mid_question_buzz(question, current_word_index, words):
     # Ask the player for their answer after they buzz
     while True:
         user_answer = input("Your answer: ").strip()
-        result = check_answer(user_answer, q["answers"], q["prompts"])
+        result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
                 print("POWER! +15 points.\n")
@@ -133,10 +133,10 @@ def mid_question_buzz(question, current_word_index, words):
 
 
 # STEP 6: FIURE OUT END-OF-QUESTION
-def score_final(q, buzzed = False):
+def score_final(question, buzzed = False):
     while True:
         user_answer = input("Final answer: ").strip()
-        result = check_answer(user_answer, q["answers"], q["prompts"])
+        result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
             print("Correct! +10 points.\n")
             return 10 # 10 points!
