@@ -171,8 +171,7 @@ def select_demo_questions(questions):
     return demo_questions
 
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
-def play_game(file):
-    random.seed(4) # Same question order every run (for easier debugging!!)
+def play_game(file, demo=True):
     questions = load_questions(file)
     score = 0
 
@@ -198,8 +197,14 @@ def play_game(file):
     print('BEGINNING GAME NOW!\n')
     time.sleep(.5) # Pause so user can mentally prepare lol
 
-    while True:
-        question = random.choice(questions)
+    if demo:
+        print("Running demo mode with a fixed set of showcase questions.\n")
+        game_questions = select_demo_questions(questions)
+    else:
+        random.seed(4) # Same question order every run (for easier debugging!!)
+        random.choice(questions)
+        game_questions = questions
+    for question in game_questions:
         # Could we maybe make it so the same question can't randomly be chosen twice in a row? IDK how to do that necessarily -- seeding??
         points = ask_question(question)
         score += points
@@ -208,4 +213,4 @@ def play_game(file):
 
 # Input will ultimately be the csv file to run
 if __name__ == "__main__":
-    play_game("questions.csv", demo = True) # Use the imported question database CSV
+    play_game("questions.csv", demo=True) # Use the imported question database CSV
