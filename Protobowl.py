@@ -32,7 +32,7 @@ def load_questions(file):
                 for prompt in split_prompts:
                     prompt = prompt.strip()
                     if prompt:
-                        prompts.appened(standardize(answer)) # Figure out a way to standardize the answer in Step 2
+                        prompts.append(standardize(answer)) # Figure out a way to standardize the answer in Step 2
 
             # Handle (*) for power scoring
             question_text = row["Question Text"]
