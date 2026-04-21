@@ -102,21 +102,34 @@ def mid_question_buzz(question, current_word_index, words):
     # Estimate character index for power scoring
     location_when_buzzed = 0
     for i in range(current_word_index):
-        location_when_buzzed += len #something + 1
+        location_when_buzzed += len(words[i]) + 1
 
     # Ask the player for their answer after they buzz
-    # user_answer =
-    result = check_answer(user_answer, q["answers"], q["prompts"])
     while True:
+        user_answer = input("Your answer: ").strip()
+        result = check_answer(user_answer, q["answers"], q["prompts"])
         if result == "correct":
-            print("Correct! +10 points.\n")
-            return 10 # 10 points!
+            if location_when_buzzed < question["power_index"]:
+                print("POWER! +15 points.\n")
+                return 15 # 15 points!
+            else:
+                print("Correct! +10 points.\n")
+                return 10 # 10 points!
         elif result == "prompt":
-            print("Prompt: please be more specific.")
+            print("PROMPT! Please be more specific.")
             continue
         else:
             print("Incorrect. Continuing to read the question....\n")
             break
+
+    # Resume printing the question from the buzz point
+    while current_word_index < len(words):
+        print(words[current_word_index])
+        time.sleep(0.3)
+        current_word_index += 1
+    print("\n")
+
+    return score_final(question, buzzed = True, location_when_buzzed = location_when_buzzed)
 
 
 # STEP 6: FIURE OUT END-OF-QUESTION
