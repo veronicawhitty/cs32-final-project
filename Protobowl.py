@@ -34,18 +34,22 @@ def load_questions(file):
                     if prompt:
                         prompts.appened(standardize(answer)) # Figure out a way to standardize the answer in Step 2
 
-            # Something here on the (*) for power scoring??
-            # like....
+            # Handle (*) for power scoring
             question_text = row["Question Text"]
             if "(*)" in question_text: # (*) is the common symbol used in Quizbowl to indicate a "power region," so I also utilize it in my database
-                # Something here
                 power_index = question_text.index("(*)")
                 question_text_clean = question_text.replace("(*)", "")
             else:
-                # Something similar here
                 power_index = len(question_text)
                 question_text_clean = question_text
                 # We should probably add whatever we do to powers to the "questions" dictionary for proper storage??
+
+            questions.append({
+                "text": question_text_clean,
+                "answers": answers,
+                "prompts": prompts,
+                "power_index": power_index
+            })
 
     return questions
 
@@ -101,7 +105,7 @@ def mid_question_buzz(question, current_word_index, words):
         location_when_buzzed += len #something + 1
 
     # Ask the player for their answer after they buzz
-    user_answer =
+    # user_answer =
     result = check_answer(user_answer, q["answers"], q["prompts"])
     while True:
         if result == "correct":
