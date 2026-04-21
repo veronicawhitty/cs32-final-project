@@ -112,10 +112,10 @@ def mid_question_buzz(question, current_word_index, words):
         result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
-                print("POWER! +15 points.\n")
+                print(f"POWER! +15 points. The correct answer was {question['answers'][0]}.\n")
                 return 15 # 15 points!
             else:
-                print("Correct! +10 points.\n")
+                print(f"Correct! +10 points. The correct answer was {question['answers'][0]}.\n")
                 return 10 # 10 points!
         elif result == "prompt":
             print("PROMPT! Please be more specific.")
@@ -131,7 +131,7 @@ def score_final(question):
         user_answer = quit_input("Final answer: ").strip()
         result = check_answer(user_answer, question["answers"], question["prompts"])
         if result == "correct":
-            print("Correct! +10 points.\n")
+            print(f"Correct! +10 points. The correct answer was {question['answers'][0]}.\n")
             return 10 # 10 points!
         elif result == "prompt":
             print("Prompt: please be more specific.")
