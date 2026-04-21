@@ -215,4 +215,4 @@ def play_game(file, demo=True):
 
 # Input will ultimately be the csv file to run
 if __name__ == "__main__":
-    play_game("questions.csv", demo=True) # Use the imported question database CSV
+    play_game("questions.csv", demo=False) # Use the imported question database CSV
