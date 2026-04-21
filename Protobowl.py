@@ -159,7 +159,7 @@ def quit_input(prompt_text = ""):
 
 # STEP 8: FUNCTION THAT ACTUALLY RUNS THE GAME COMPLETELY
 def play_game(file):
-    random.seed(2) # Same question order every run (for easier debugging!!)
+    random.seed(4) # Same question order every run (for easier debugging!!)
     questions = load_questions(file)
     score = 0
 
