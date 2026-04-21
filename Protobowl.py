@@ -94,7 +94,7 @@ def check_answer(user_answer, answers, prompts):
         for prompt in prompts:
             if prompt == user_answer or prompt in user_answer:
                 return "prompt"
-            return "incorrect" # (if it's not a correct answer or a prompt, effectively an "else")
+        return "incorrect" # (if it's not a correct answer or a prompt, effectively an "else")
 
 
 # STEP 5: FIGURE OUT MID-QUESTION BUZZING (& SCORING??)
@@ -122,8 +122,8 @@ def mid_question_buzz(question, current_word_index, words):
 # STEP 6: FIURE OUT END-OF-QUESTION
 def score_final(q, buzzed = False):
     while True:
-        user_answer = #something
-        result = check_answer(user_answer, q{"answers"}, q{"prompts"})
+        user_answer = input("Final answer: ").strip()
+        result = check_answer(user_answer, q["answers"], q["prompts"])
         if result == "correct":
             print("Correct! +10 points.\n")
             return 10 # 10 points!
@@ -131,7 +131,7 @@ def score_final(q, buzzed = False):
             print("Prompt: please be more specific.")
             continue
         else:
-            print(f{"Wrong. The correct answer was: {q['answers'][0]\n"})
+            print(f"Wrong. The correct answer was: {q['answers'][0]}\n")
             return 0
 
 
