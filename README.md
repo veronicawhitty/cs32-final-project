@@ -35,7 +35,7 @@ The game is fully playable in the terminal. Core mechanics (buzzing, scoring, an
 
 ## External Contributors and Use of AI Tools
 I used ChatGPT as a supplementary tool during development. Specifically, I used it to:
-- Help debug and refine parts of my code (specifically, )
+- Help debug and refine parts of my code (specifically, how to create a 'demo mode' for my code explanations videos)
 - Get suggestions for organizing my code into functions and improving readability
 - Think through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
 
