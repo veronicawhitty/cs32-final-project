@@ -33,5 +33,12 @@ The game is fully playable in the terminal. Core mechanics (buzzing, scoring, an
 - If you are incorrect, buzz as many times as needed until you achieve a correct answer OR until the question is finished being read
 - Score updates as the game is played, with points awarded in 15s or 10s based on answer speed
 
+## External Contributors and Use of AI Tools
+I used ChatGPT as a supplementary tool during development. Specifically, I used it to:
+- Help debug and refine parts of my code (specifically, )
+- Get suggestions for organizing my code into functions and improving readability
+- Think through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
+
+
 ## Credits
 Inspired by Protobowl and other quizbowl-style trivia games. An extra-special shoutout to Kevin Kwok and Ben Vest, the original programmers behind Protobowl.com, as well as Geoffrey Wu, the creator of the more modern and user-friendly QBReader interface, which has effectively replaced Protobowl in utility and thus serves as an additional reference point for this project.
