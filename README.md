@@ -6,13 +6,21 @@ This project aims to recreate the core experience of the JavaScript-operated Pro
 ## Motivation
 Quizbowl was one of my favorite extracurricular activities in high school, and one of the highlights of the "Quizbowl experience" was indubitably competing with friends with Protobowl.com, a popular online practice tool for Quizbowl competitors. I wanted to build a project that captures the fast-paced, competitive feel of Quizbowl while exploring how real-time interaction between the user and Python can be handled in a terminal environment (via real-time buzzing.) This project also allows me to work on input handling, timing, and game state management in Python, all diciplines I am intrigued by.
 
-## Intended Features
-- CSV file reading for question database
-- Incremental question display (word-by-word printing of questions)
-- Answer input and checking
-- Score tracking aross questions
-- Continuous game loop for repeated play
-- "Quit" option for when users have completed playing
+## Project Functionality and Intended Features
+This project implements a terminal-based Quizbowl-style trivia game inspired by Protobowl.com. The program reads questions from a CSV database and presents them to the user word-by-word, simulating the incremental reveal used in real Quizbowl matches.
+
+At any point while the question is being read, the user can "buzz in" by pressing Ctrl+C. The program then pauses the question and prompts the user for an answer.
+
+The game includes the following key features:
+- **Incremental question reading**: Questions are displayed one word at a time to simulate live gameplay.
+- **Buzzing system**: Users can interrupt the question at any time using a keyboard interrupt.
+- **Power scoring**: If the user answers early enough (before a marked point in the question), they earn 15 points instead of 10.
+- **Answer standardization**: User input is normalized to allow flexible matching (ignoring capitalization and punctuation).
+- **Multiple acceptable answers**: Questions can have several valid answers stored in the CSV file. Common mispellings are accounted for on particularly difficult questions.
+- **Prompting system**: If a user gives a partially correct answer, the program asks them to be more specific instead of marking it wrong.
+- **Demo mode**: A fixed set of questions can be selected for consistent testing and demonstration.
+
+The program keeps track of the user's score across multiple questions and runs until the user chooses to quit.
 
 ## Tech Stack
 - Python (CS32/CS50 IDE)
