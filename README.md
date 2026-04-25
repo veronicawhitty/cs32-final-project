@@ -19,18 +19,19 @@ Quizbowl was one of my favorite extracurricular activities in high school, and o
 - Terminal interface
 
 ## Installation
-[ADD THIS SECTION AFTER CHATTING WITH A TF IN OFFICE HOURS]
+- Make sure you have Python 3 installed
+- Place `questions.csv` in the same directory as `Protobowl.py`
+- Use 'Ctrl-C' to buzz in when playing the game
 
 ## How to Use
-[ADD MORE ONCE WE WRITE SOME MORE SUBSTANTIAL CODE]
+The game is fully playable in the terminal. Core mechanics (buzzing, scoring, answer checking) are implemented and tested.
+
 - The question will begin displaying gradually in the terminal
-- Press [INSERT BUZZER ACTIVATION KEY] (or following the beginning instructions message) to buzz in
+- Press 'Ctrl-C' (or follow the beginning instructions message) to buzz in
 - Upon buzzing, type in your answer and click "return"
 - The program will tell you if you are correct and update your score
 - If you are incorrect, buzz as many times as needed until you achieve a correct answer OR until the question is finished being read
-
-## Contribute
-If you're reading this still: answer my abundance of questions in office hours throughout the rest of the semester (pretty please)
+- Score updates as the game is played, with points awarded in 15s or 10s based on answer speed
 
 ## Credits
 Inspired by Protobowl and other quizbowl-style trivia games. An extra-special shoutout to Kevin Kwok and Ben Vest, the original programmers behind Protobowl.com, as well as Geoffrey Wu, the creator of the more modern and user-friendly QBReader interface, which has effectively replaced Protobowl in utility and thus serves as an additional reference point for this project.
