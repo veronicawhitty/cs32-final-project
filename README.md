@@ -27,9 +27,8 @@ The program keeps track of the user's score across multiple questions and runs u
 - Terminal interface
 
 ## Installation
-- Make sure you have Python 3 installed
-- Place `questions.csv` in the same directory as `Protobowl.py`
-- Use 'Ctrl-C' to buzz in when playing the game
+- Make sure you have Python 3 and questions.csv installed on your device
+- Place `questions.csv` in the same directory as `Protobowl.py` in order to access questions during gameplay
 
 ## How to Use
 The game is fully playable in the terminal. Core mechanics (buzzing, scoring, answer checking) are implemented and tested.
