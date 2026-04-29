@@ -25,23 +25,23 @@ if not st.session_state.started:
     st.write("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
     st.write("In order to end the game, buzz in to any question and type 'quit'.")
 
-if st.button("Start game"):
-    questions = pb.load_questions("questions.csv")
+    if st.button("Start game"):
+        questions = pb.load_questions("questions.csv")
 
-    if demo_mode:
-        questions = pb.select_demo_questions(questions)
-    else:
-        random.seed(4)
-        questions = random.sample(questions, len(questions)) # I AM CONFUSED ABOUT THIS LINE
+        if demo_mode:
+            questions = pb.select_demo_questions(questions)
+        else:
+            random.seed(4)
+            questions = random.sample(questions, len(questions)) # I AM CONFUSED ABOUT THIS LINE
 
-    st.session_state.started = True
-    st.session_state.questions = questions
-    st.session_state.question_number = 0
-    st.session_state.word_number = 0
-    st.session_state.score = 0
-    st.session_state.buzzed = False
-    st.session_state.message = ""
-    st.rerun()
+        st.session_state.started = True
+        st.session_state.questions = questions
+        st.session_state.question_number = 0
+        st.session_state.word_number = 0
+        st.session_state.score = 0
+        st.session_state.buzzed = False
+        st.session_state.message = ""
+        st.rerun()
 
 else:
     question = st.session_state.questions[st.session_state.question_number]
