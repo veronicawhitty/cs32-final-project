@@ -9,7 +9,7 @@ st.title("CS32 Final Project: Python Protobowl")
 
 if "started" not in st.session_state:
     st.session_state.started = False
-    st.session_state.clearing_intro = False
+    st.session_state.ready_to_read = False
     st.session_state.questions = []
     st.session_state.question_number = 0
     st.session_state.word_number = 0
@@ -18,54 +18,52 @@ if "started" not in st.session_state:
     st.session_state.message = ""
     st.session_state.answer_key = 0
 
-
-def start_game(demo_mode):
-    questions = pb.load_questions("questions.csv")
-
-    if demo_mode:
-        questions = pb.select_demo_questions(questions)
-    else:
-        random.seed(4)
-        questions = random.sample(questions, len(questions))
-
-    st.session_state.started = True
-    st.session_state.clearing_intro = True
-    st.session_state.questions = questions
-    st.session_state.question_number = 0
-    st.session_state.word_number = 1
-    st.session_state.score = 0
-    st.session_state.buzzed = False
-    st.session_state.message = ""
-    st.session_state.answer_key += 1
-
-
-if st.session_state.clearing_intro:
-    st.session_state.clearing_intro = False
-    st.empty()
-    time.sleep(0.2)
-    st.rerun()
-
+intro_area = st.empty()
 
 if not st.session_state.started:
-    demo_mode = st.checkbox("Demo mode", value=True)
+    with intro_area.container():
+        demo_mode = st.checkbox("Demo mode", value=True)
 
-    st.write("Welcome to Python Protobowl: Harvard Edition!")
-    st.write("**RULES OF THE GAME:**")
-    st.write("Press the **Buzz** button during a question.")
-    st.write("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
-    st.write("In order to end the game, buzz in to any question and type 'quit'.")
+        st.write("Welcome to Python Protobowl: Harvard Edition!")
+        st.write("**RULES OF THE GAME:**")
+        st.write("Press the **Buzz** button during a question.")
+        st.write("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
+        st.write("In order to end the game, buzz in to any question and type 'quit'.")
 
-    if st.button("Start game"):
-        start_game(demo_mode)
-        st.rerun()
+        if st.button("Start game"):
+            questions = pb.load_questions("questions.csv")
+
+            if demo_mode:
+                questions = pb.select_demo_questions(questions)
+            else:
+                random.seed(4)
+                questions = random.sample(questions, len(questions))
+
+            st.session_state.started = True
+            st.session_state.ready_to_read = False
+            st.session_state.questions = questions
+            st.session_state.question_number = 0
+            st.session_state.word_number = 1
+            st.session_state.score = 0
+            st.session_state.buzzed = False
+            st.session_state.message = ""
+            st.session_state.answer_key += 1
+
+            intro_area.empty()
+            time.sleep(0.2)
+            st.rerun()
 
     st.stop()
 
+intro_area.empty()
+
+if not st.session_state.ready_to_read:
+    st.session_state.ready_to_read = True
+    st.rerun()
 
 if st.session_state.question_number >= len(st.session_state.questions):
     st.success(f"Game over! Final score: {st.session_state.score}")
     st.stop()
-
 
 question = st.session_state.questions[st.session_state.question_number]
 words = question["text"].split()
@@ -75,7 +73,6 @@ st.subheader(f"Score: {st.session_state.score}")
 new_words = words[:st.session_state.word_number]
 st.write(" ".join(new_words))
 
-
 if not st.session_state.buzzed:
     if st.button("Buzz"):
         st.session_state.buzzed = True
@@ -83,10 +80,8 @@ if not st.session_state.buzzed:
         st.session_state.answer_key += 1
         st.rerun()
 
-
 if st.session_state.message:
     st.info(st.session_state.message)
-
 
 if st.session_state.buzzed:
     answer = st.text_input(
@@ -97,6 +92,7 @@ if st.session_state.buzzed:
     if st.button("Submit", key=f"submit_{st.session_state.answer_key}"):
         if answer.strip().lower() == "quit":
             st.session_state.started = False
+            st.session_state.ready_to_read = False
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
             st.success(f"Exiting game. Final score: {st.session_state.score}")
@@ -134,7 +130,6 @@ if st.session_state.buzzed:
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
             st.rerun()
-
 
 else:
     if st.session_state.word_number < len(words):
