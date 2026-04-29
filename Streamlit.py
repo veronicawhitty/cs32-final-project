@@ -5,6 +5,9 @@ import streamlit as st
 import Protobowl as pb
 # COPY AND PASTE TO RUN THIS FILE: streamlit run Streamlit.py
 
+st.set_page_config(
+    page_title="Python Protobowl",
+    page_icon="💡")
 st.title("CS32 Final Project: Python Protobowl")
 
 if "started" not in st.session_state:
