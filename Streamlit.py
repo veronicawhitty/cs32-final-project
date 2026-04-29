@@ -10,6 +10,8 @@ st.title("CS32 Final Project: Python Protobowl")
 if "started" not in st.session_state:
     st.session_state.started = False
     st.session_state.ready_to_read = False
+    st.session_state.game_over = False
+    st.session_state.final_score = 0
     st.session_state.questions = []
     st.session_state.question_number = 0
     st.session_state.word_number = 0
@@ -42,6 +44,8 @@ if not st.session_state.started:
 
             st.session_state.started = True
             st.session_state.ready_to_read = False
+            st.session_state.game_over = False
+            st.session_state.final_score = 0
             st.session_state.questions = questions
             st.session_state.question_number = 0
             st.session_state.word_number = 1
@@ -58,16 +62,14 @@ if not st.session_state.started:
 
 intro_area.empty()
 
-if not st.session_state.ready_to_read:
-    st.session_state.ready_to_read = True
-    st.rerun()
+if st.session_state.game_over:
+    st.success(f"Game over! Final score: {st.session_state.final_score}")
 
-if st.session_state.question_number >= len(st.session_state.questions):
-    st.success(f"Game over! Final score: {st.session_state.score}")
-
-    if st.button("Play again"):
+    if st.button("Start over"):
         st.session_state.started = False
         st.session_state.ready_to_read = False
+        st.session_state.game_over = False
+        st.session_state.final_score = 0
         st.session_state.questions = []
         st.session_state.question_number = 0
         st.session_state.word_number = 0
@@ -78,6 +80,15 @@ if st.session_state.question_number >= len(st.session_state.questions):
         st.rerun()
 
     st.stop()
+
+if not st.session_state.ready_to_read:
+    st.session_state.ready_to_read = True
+    st.rerun()
+
+if st.session_state.question_number >= len(st.session_state.questions):
+    st.session_state.final_score = st.session_state.score
+    st.session_state.game_over = True
+    st.rerun()
 
 question = st.session_state.questions[st.session_state.question_number]
 words = question["text"].split()
@@ -113,19 +124,12 @@ if st.session_state.buzzed:
 
     if submit:
         if answer.strip().lower() == "quit":
-            final_score = st.session_state.score
-
-            # Reset everything
-            st.session_state.started = False
+            st.session_state.final_score = st.session_state.score
+            st.session_state.game_over = True
             st.session_state.ready_to_read = False
-            st.session_state.questions = []
-            st.session_state.question_number = 0
-            st.session_state.word_number = 0
-            st.session_state.score = 0
             st.session_state.buzzed = False
-            st.session_state.message = f"Game exited. Final score: {final_score}"
             st.session_state.answer_key += 1
-
+            answer_area.empty()
             st.rerun()
 
         result = pb.check_answer(answer, question["answers"], question["prompts"])
@@ -159,7 +163,7 @@ if st.session_state.buzzed:
         elif result == "prompt":
             user_guess = answer.strip()
             st.session_state.message = (
-                f'PROMPT! The answer "{user_guess}" is too vague. Please be more specific.'
+                f'PROMPT! "{user_guess}" is too vague — please be more specific.'
             )
             st.session_state.answer_key += 1
             answer_area.empty()
