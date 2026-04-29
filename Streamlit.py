@@ -17,115 +17,129 @@ if "started" not in st.session_state:
     st.session_state.message = ""
     st.session_state.answer_key = 0
 
-demo_mode = st.checkbox("Demo mode", value=True)
+screen = st.empty()
+answer_area = st.empty()
 
 if not st.session_state.started:
-    st.write("Welcome to Python Protobowl: Harvard Edition!")
-    st.write("**RULES OF THE GAME:**")
-    st.write("Press the **Buzz** button during a question.")
-    st.write("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
-    st.write("In order to end the game, buzz in to any question and type 'quit'.")
+    with screen.container():
+        demo_mode = st.checkbox("Demo mode", value=True)
 
-    if st.button("Start game"):
-        questions = pb.load_questions("questions.csv")
+        st.write("Welcome to Python Protobowl: Harvard Edition!")
+        st.write("**RULES OF THE GAME:**")
+        st.write("Press the **Buzz** button during a question.")
+        st.write("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
+        st.write("In order to end the game, buzz in to any question and type 'quit'.")
 
-        if demo_mode:
-            questions = pb.select_demo_questions(questions)
-        else:
-            random.seed(4)
-            questions = random.sample(questions, len(questions))
+        if st.button("Start game"):
+            questions = pb.load_questions("questions.csv")
 
-        st.session_state.started = True
-        st.session_state.questions = questions
-        st.session_state.question_number = 0
-        st.session_state.word_number = 1
-        st.session_state.score = 0
-        st.session_state.buzzed = False
-        st.session_state.message = ""
-        st.session_state.answer_key += 1
-        st.rerun()
+            if demo_mode:
+                questions = pb.select_demo_questions(questions)
+            else:
+                random.seed(4)
+                questions = random.sample(questions, len(questions))
+
+            st.session_state.started = True
+            st.session_state.questions = questions
+            st.session_state.question_number = 0
+            st.session_state.word_number = 1
+            st.session_state.score = 0
+            st.session_state.buzzed = False
+            st.session_state.message = ""
+            st.session_state.answer_key += 1
+
+            screen.empty()
+            answer_area.empty()
+            st.rerun()
 
 else:
-    if st.session_state.question_number >= len(st.session_state.questions):
-        st.success(f"Game over! Final score: {st.session_state.score}")
-        st.stop()
+    with screen.container():
+        if st.session_state.question_number >= len(st.session_state.questions):
+            st.success(f"Game over! Final score: {st.session_state.score}")
+            st.stop()
 
-    question = st.session_state.questions[st.session_state.question_number]
-    words = question["text"].split()
+        question = st.session_state.questions[st.session_state.question_number]
+        words = question["text"].split()
 
-    st.subheader(f"Score: {st.session_state.score}")
+        st.subheader(f"Score: {st.session_state.score}")
 
-    new_words = words[:st.session_state.word_number]
-    st.write(" ".join(new_words))
+        new_words = words[:st.session_state.word_number]
+        st.write(" ".join(new_words))
 
-    if not st.session_state.buzzed:
-        if st.button("Buzz"):
-            st.session_state.buzzed = True
-            st.session_state.message = "[BUZZ!]"
-            st.session_state.answer_key += 1
-            st.rerun()
+        if not st.session_state.buzzed:
+            answer_area.empty()
 
-    if st.session_state.message:
-        st.info(st.session_state.message)
-
-    if st.session_state.buzzed:
-        answer = st.text_input(
-            "Your answer:",
-            key=f"answer_{st.session_state.answer_key}"
-        )
-
-        submitted = st.button(
-            "Submit",
-            key=f"submit_{st.session_state.answer_key}"
-        )
-
-        if submitted:
-            if answer.strip().lower() == "quit":
-                st.session_state.started = False
-                st.session_state.buzzed = False
-                st.session_state.answer_key += 1
-                st.success(f"Exiting game. Final score: {st.session_state.score}")
-                st.stop()
-
-            result = pb.check_answer(answer, question["answers"], question["prompts"])
-
-            location_when_buzzed = 0
-            for i in range(st.session_state.word_number):
-                location_when_buzzed += len(words[i]) + 1
-
-            if result == "correct":
-                if location_when_buzzed < question["power_index"]:
-                    points = 15
-                    st.session_state.message = f"POWER! +15 points. The correct answer was {question['display_answers']}."
-                else:
-                    points = 10
-                    st.session_state.message = f"Correct! +10 points. The correct answer was {question['display_answers']}."
-
-                st.session_state.score += points
-                st.session_state.question_number += 1
-                st.session_state.word_number = 1
-                st.session_state.buzzed = False
+            if st.button("Buzz"):
+                st.session_state.buzzed = True
+                st.session_state.message = "[BUZZ!]"
                 st.session_state.answer_key += 1
                 st.rerun()
 
-            elif result == "prompt":
-                st.session_state.message = "PROMPT! Please be more specific."
-                st.session_state.answer_key += 1
-                st.rerun()
+        if st.session_state.message:
+            st.info(st.session_state.message)
 
-            else:
-                st.session_state.message = "Incorrect. Continuing to read the question."
-                st.session_state.buzzed = False
-                st.session_state.answer_key += 1
-                st.rerun()
+        if st.session_state.buzzed:
+            with answer_area.container():
+                answer = st.text_input(
+                    "Your answer:",
+                    key=f"answer_{st.session_state.answer_key}"
+                )
 
-    else:
-        if st.session_state.word_number < len(words):
-            time.sleep(0.3)
-            st.session_state.word_number += 1
-            st.rerun()
+                if st.button("Submit", key=f"submit_{st.session_state.answer_key}"):
+                    if answer.strip().lower() == "quit":
+                        st.session_state.started = False
+                        st.session_state.buzzed = False
+                        st.session_state.answer_key += 1
+                        screen.empty()
+                        answer_area.empty()
+                        st.success(f"Exiting game. Final score: {st.session_state.score}")
+                        st.stop()
+
+                    result = pb.check_answer(
+                        answer,
+                        question["answers"],
+                        question["prompts"]
+                    )
+
+                    location_when_buzzed = 0
+                    for i in range(st.session_state.word_number):
+                        location_when_buzzed += len(words[i]) + 1
+
+                    if result == "correct":
+                        if location_when_buzzed < question["power_index"]:
+                            points = 15
+                            st.session_state.message = f"POWER! +15 points. The correct answer was {question['display_answers']}."
+                        else:
+                            points = 10
+                            st.session_state.message = f"Correct! +10 points. The correct answer was {question['display_answers']}."
+
+                        st.session_state.score += points
+                        st.session_state.question_number += 1
+                        st.session_state.word_number = 1
+                        st.session_state.buzzed = False
+                        st.session_state.answer_key += 1
+                        answer_area.empty()
+                        st.rerun()
+
+                    elif result == "prompt":
+                        st.session_state.message = "PROMPT! Please be more specific."
+                        st.session_state.answer_key += 1
+                        st.rerun()
+
+                    else:
+                        st.session_state.message = "Incorrect. Continuing to read the question."
+                        st.session_state.buzzed = False
+                        st.session_state.answer_key += 1
+                        answer_area.empty()
+                        st.rerun()
+
         else:
-            st.session_state.buzzed = True
-            st.session_state.message = "End of question. Enter your final answer."
-            st.session_state.answer_key += 1
-            st.rerun()
+            if st.session_state.word_number < len(words):
+                time.sleep(0.3)
+                st.session_state.word_number += 1
+                st.rerun()
+            else:
+                st.session_state.buzzed = True
+                st.session_state.message = "End of question. Enter your final answer."
+                st.session_state.answer_key += 1
+                st.rerun()
