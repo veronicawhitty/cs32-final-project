@@ -19,7 +19,6 @@ if "started" not in st.session_state:
     st.session_state.answer_key = 0
 
 intro_area = st.empty()
-answer_area = st.empty()
 
 if not st.session_state.started:
     with intro_area.container():
@@ -51,7 +50,6 @@ if not st.session_state.started:
             st.session_state.answer_key += 1
 
             intro_area.empty()
-            answer_area.empty()
             time.sleep(0.2)
             st.rerun()
 
@@ -64,7 +62,6 @@ if not st.session_state.ready_to_read:
     st.rerun()
 
 if st.session_state.question_number >= len(st.session_state.questions):
-    answer_area.empty()
     st.success(f"Game over! Final score: {st.session_state.score}")
     st.stop()
 
@@ -77,8 +74,6 @@ new_words = words[:st.session_state.word_number]
 st.write(" ".join(new_words))
 
 if not st.session_state.buzzed:
-    answer_area.empty()
-
     if st.button("Buzz"):
         st.session_state.buzzed = True
         st.session_state.message = "[BUZZ!]"
@@ -87,6 +82,8 @@ if not st.session_state.buzzed:
 
 if st.session_state.message:
     st.info(st.session_state.message)
+
+answer_area = st.empty()
 
 if st.session_state.buzzed:
     with answer_area.container():
