@@ -10,7 +10,7 @@ import Protobowl as pb
 st.set_page_config(
     page_title = "Python Protobowl",
     page_icon = "icon.png")
-st.image("logo.png", width=100)
+# st.image("logo.png", width=100)
 st.title("CS32 Final Project: Python Protobowl")
 
 if "started" not in st.session_state:
