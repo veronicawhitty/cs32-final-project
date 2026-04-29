@@ -152,7 +152,7 @@ if st.session_state.buzzed:
         elif result == "prompt":
             user_guess = answer.strip()
             st.session_state.message = (
-                f'PROMPT! "{user_guess}" is too vague — please be more specific.'
+                f'PROMPT! The answer "{user_guess}" is too vague — please be more specific.'
             )
             st.session_state.answer_key += 1
             answer_area.empty()
