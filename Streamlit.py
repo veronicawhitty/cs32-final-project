@@ -19,6 +19,7 @@ if "started" not in st.session_state:
     st.session_state.answer_key = 0
 
 intro_area = st.empty()
+answer_area = st.empty()
 
 if not st.session_state.started:
     with intro_area.container():
@@ -50,6 +51,7 @@ if not st.session_state.started:
             st.session_state.answer_key += 1
 
             intro_area.empty()
+            answer_area.empty()
             time.sleep(0.2)
             st.rerun()
 
@@ -62,6 +64,7 @@ if not st.session_state.ready_to_read:
     st.rerun()
 
 if st.session_state.question_number >= len(st.session_state.questions):
+    answer_area.empty()
     st.success(f"Game over! Final score: {st.session_state.score}")
     st.stop()
 
@@ -74,6 +77,8 @@ new_words = words[:st.session_state.word_number]
 st.write(" ".join(new_words))
 
 if not st.session_state.buzzed:
+    answer_area.empty()
+
     if st.button("Buzz"):
         st.session_state.buzzed = True
         st.session_state.message = "[BUZZ!]"
@@ -84,17 +89,24 @@ if st.session_state.message:
     st.info(st.session_state.message)
 
 if st.session_state.buzzed:
-    answer = st.text_input(
-        "Your answer:",
-        key=f"answer_{st.session_state.answer_key}"
-    )
+    with answer_area.container():
+        answer = st.text_input(
+            "Your answer:",
+            key=f"answer_{st.session_state.answer_key}"
+        )
 
-    if st.button("Submit", key=f"submit_{st.session_state.answer_key}"):
+        submit = st.button(
+            "Submit",
+            key=f"submit_{st.session_state.answer_key}"
+        )
+
+    if submit:
         if answer.strip().lower() == "quit":
             st.session_state.started = False
             st.session_state.ready_to_read = False
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
+            answer_area.empty()
             st.success(f"Exiting game. Final score: {st.session_state.score}")
             st.stop()
 
@@ -117,21 +129,26 @@ if st.session_state.buzzed:
             st.session_state.word_number = 1
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
+            answer_area.empty()
             st.rerun()
 
         elif result == "prompt":
             user_guess = answer.strip()
             st.session_state.message = f'PROMPT! "{user_guess}" is too vague — please be more specific.'
             st.session_state.answer_key += 1
+            answer_area.empty()
             st.rerun()
 
         else:
             st.session_state.message = "Incorrect. Continuing to read the question."
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
+            answer_area.empty()
             st.rerun()
 
 else:
+    answer_area.empty()
+
     if st.session_state.word_number < len(words):
         time.sleep(0.3)
         st.session_state.word_number += 1
