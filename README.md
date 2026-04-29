@@ -41,10 +41,17 @@ The game is fully playable in the terminal. Core mechanics (buzzing, scoring, an
 - Score updates as the game is played, with points awarded in 15s or 10s based on answer speed
 
 ## External Contributors and Use of AI Tools
-I used ChatGPT as a supplementary tool during development. Specifically, I used it to:
+I used ChatGPT as a supplementary tool during development of both protobowl.py and streamlit.py.
+
+In protobowl.py, I used it to:
 - Help debug and refine parts of my code (specifically, how to create a 'demo mode' for my code explanations videos)
 - Identify a pesky indentation problem with my for loops in Step 4
 - Think through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
+
+In streamlit.py, I used it to:
+- Resolve persistent “floating” UI elements (such as buttons and input fields) caused by Streamlit’s rerun behavior
+- Ensure that the intro screen (rules and start button) properly disappears once gameplay begins
+- Implement a clean quit flow that displays the user’s final score and allows them to restart the game without refreshing the page
 
 I also used a tutorial from Geeksforgeeks.org to better understand the flush() method.
 
