@@ -63,4 +63,5 @@ else:
         answer = st.text_input("Your answer:")
 
         if st.button("Submit"):
+            if answer.strip().lower() == "quit"
             
