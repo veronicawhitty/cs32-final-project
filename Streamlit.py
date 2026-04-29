@@ -15,6 +15,7 @@ if "started" not in st.session_state:
     st.session_state.score = 0
     st.session_state.buzzed = False
     st.session_state.message = ""
+    st.session_state.answer_key = 0
 
 demo_mode = st.checkbox("Demo mode", value=True)
 
@@ -41,6 +42,7 @@ if not st.session_state.started:
         st.session_state.score = 0
         st.session_state.buzzed = False
         st.session_state.message = ""
+        st.session_state.answer_key += 1
         st.rerun()
 
 else:
@@ -60,18 +62,28 @@ else:
         if st.button("Buzz"):
             st.session_state.buzzed = True
             st.session_state.message = "[BUZZ!]"
+            st.session_state.answer_key += 1
             st.rerun()
 
     if st.session_state.message:
         st.info(st.session_state.message)
 
     if st.session_state.buzzed:
-        answer = st.text_input("Your answer:")
+        answer = st.text_input(
+            "Your answer:",
+            key=f"answer_{st.session_state.answer_key}"
+        )
 
-        if st.button("Submit"):
+        submitted = st.button(
+            "Submit",
+            key=f"submit_{st.session_state.answer_key}"
+        )
+
+        if submitted:
             if answer.strip().lower() == "quit":
                 st.session_state.started = False
                 st.session_state.buzzed = False
+                st.session_state.answer_key += 1
                 st.success(f"Exiting game. Final score: {st.session_state.score}")
                 st.stop()
 
@@ -93,15 +105,18 @@ else:
                 st.session_state.question_number += 1
                 st.session_state.word_number = 1
                 st.session_state.buzzed = False
+                st.session_state.answer_key += 1
                 st.rerun()
 
             elif result == "prompt":
                 st.session_state.message = "PROMPT! Please be more specific."
+                st.session_state.answer_key += 1
                 st.rerun()
 
             else:
                 st.session_state.message = "Incorrect. Continuing to read the question."
                 st.session_state.buzzed = False
+                st.session_state.answer_key += 1
                 st.rerun()
 
     else:
@@ -112,4 +127,5 @@ else:
         else:
             st.session_state.buzzed = True
             st.session_state.message = "End of question. Enter your final answer."
+            st.session_state.answer_key += 1
             st.rerun()
