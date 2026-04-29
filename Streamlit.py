@@ -27,8 +27,9 @@ if not st.session_state.started:
         st.write("Welcome to Python Protobowl: Harvard Edition!")
         st.write("**RULES OF THE GAME:**")
         st.write("Press the **Buzz** button during a question.")
-        st.write("Correct answers are worth 10 points. Questions answered correctly within the first sentences of the passage are worth 15 points.")
-        st.write("In order to end the game, buzz in to any question and type 'quit'.")
+        st.write("Correct answers are worth 10 points.")
+        st.write("Questions answered correctly within the power region are worth 15 points.")
+        st.write("To end the game, buzz in to any question and type 'quit'.")
 
         if st.button("Start game"):
             questions = pb.load_questions("questions.csv")
@@ -63,6 +64,19 @@ if not st.session_state.ready_to_read:
 
 if st.session_state.question_number >= len(st.session_state.questions):
     st.success(f"Game over! Final score: {st.session_state.score}")
+
+    if st.button("Play again"):
+        st.session_state.started = False
+        st.session_state.ready_to_read = False
+        st.session_state.questions = []
+        st.session_state.question_number = 0
+        st.session_state.word_number = 0
+        st.session_state.score = 0
+        st.session_state.buzzed = False
+        st.session_state.message = ""
+        st.session_state.answer_key += 1
+        st.rerun()
+
     st.stop()
 
 question = st.session_state.questions[st.session_state.question_number]
@@ -116,10 +130,16 @@ if st.session_state.buzzed:
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
                 points = 15
-                st.session_state.message = f"POWER! +15 points. The correct answer was {question['display_answers']}."
+                st.session_state.message = (
+                    f"POWER! +15 points. The correct answer was "
+                    f"{question['display_answers']}."
+                )
             else:
                 points = 10
-                st.session_state.message = f"Correct! +10 points. The correct answer was {question['display_answers']}."
+                st.session_state.message = (
+                    f"Correct! +10 points. The correct answer was "
+                    f"{question['display_answers']}."
+                )
 
             st.session_state.score += points
             st.session_state.question_number += 1
@@ -131,7 +151,9 @@ if st.session_state.buzzed:
 
         elif result == "prompt":
             user_guess = answer.strip()
-            st.session_state.message = f'PROMPT! "{user_guess}" is too vague — please be more specific.'
+            st.session_state.message = (
+                f'PROMPT! "{user_guess}" is too vague — please be more specific.'
+            )
             st.session_state.answer_key += 1
             answer_area.empty()
             st.rerun()
