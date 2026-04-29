@@ -56,10 +56,11 @@ else:
     new_words = words[:st.session_state.word_number]
     st.write(" ".join(new_words))
 
-    if st.button("Buzz"):
-        st.session_state.buzzed = True
-        st.session_state.message = "[BUZZ!]"
-        st.rerun()
+    if not st.session_state.buzzed:
+        if st.button("Buzz"):
+            st.session_state.buzzed = True
+            st.session_state.message = "[BUZZ!]"
+            st.rerun()
 
     if st.session_state.message:
         st.info(st.session_state.message)
@@ -70,6 +71,7 @@ else:
         if st.button("Submit"):
             if answer.strip().lower() == "quit":
                 st.session_state.started = False
+                st.session_state.buzzed = False
                 st.success(f"Exiting game. Final score: {st.session_state.score}")
                 st.stop()
 
