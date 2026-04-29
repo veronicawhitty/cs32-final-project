@@ -105,7 +105,7 @@ st.write(" ".join(new_words))
 if not st.session_state.buzzed:
     if st.button("Buzz"):
         st.session_state.buzzed = True
-        st.session_state.message = "[BUZZ!]"
+        st.session_state.message = "BUZZ!"
         st.session_state.answer_key += 1
         st.rerun()
 
