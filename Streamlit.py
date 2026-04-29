@@ -63,5 +63,51 @@ else:
         answer = st.text_input("Your answer:")
 
         if st.button("Submit"):
-            if answer.strip().lower() == "quit"
-            
+            if answer.strip().lower() == "quit":
+                st.session_state.started = False
+                st.success(f"Exiting game. Final score: {st.session_state.score}")
+                st.stop()
+
+            result = pb.check_answer(answer, question["answers"], question["prompts"])
+            location_when_buzzed = 0
+            for i in range(st.session_state.word_number):
+                location_when_buzzed += len(words[i]) + 1
+
+            if result == "correct":
+                if location_when_buzzed < question["power_index"]:
+                    points = 15
+                    st.success(f"POWER! +15 points. The correct answer was "f"{question['display_answers']}.")
+
+                else:
+                    points = 10
+                    st.success(f"Correct! +10 points. The correct answer was "f"{question['display_answers']}.")
+
+                st.session_state.question_number += 1
+                st.session_state.word_number = 0
+                st.session_state.score += points
+                st.session_state.buzzed = False
+                st.session_state.message = ""
+
+            elif result == "prompt":
+                st.warning("PROMPT! Please be more specific.")
+
+            else:
+                st.error("Incorrect. Continuing to read the question.")
+                st.session_state.buzzed = False
+
+            if st.session_state.question_number >= len(st.session_state.questions):
+                st.success(f"Game over! Final score: {st.session_state.score}")
+                st.stop()
+
+            st.rerun()
+
+        else:
+            time.sleep(0.3)
+
+            if st.session_state.word_number < len(words):
+                st.session_state.word_number += 1
+            else:
+                st.session_state.buzzed = True
+                st.session_state.message = "End of question. Enter your final answer."
+
+            st.rerun()
