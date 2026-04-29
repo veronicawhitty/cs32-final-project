@@ -51,7 +51,6 @@ with page.container():
 
         if st.button("Start game"):
             start_game(demo_mode)
-            page.empty()
             st.rerun()
 
         st.stop()
@@ -73,7 +72,6 @@ with page.container():
             st.session_state.buzzed = True
             st.session_state.message = "[BUZZ!]"
             st.session_state.answer_key += 1
-            page.empty()
             st.rerun()
 
     if st.session_state.message:
@@ -90,7 +88,6 @@ with page.container():
                 st.session_state.started = False
                 st.session_state.buzzed = False
                 st.session_state.answer_key += 1
-                page.empty()
                 st.success(f"Exiting game. Final score: {st.session_state.score}")
                 st.stop()
 
@@ -113,32 +110,27 @@ with page.container():
                 st.session_state.word_number = 1
                 st.session_state.buzzed = False
                 st.session_state.answer_key += 1
-                page.empty()
                 st.rerun()
 
             elif result == "prompt":
                 user_guess = answer.strip()
                 st.session_state.message = f'PROMPT! "{user_guess}" is too vague — please be more specific.'
                 st.session_state.answer_key += 1
-                page.empty()
                 st.rerun()
 
             else:
                 st.session_state.message = "Incorrect. Continuing to read the question."
                 st.session_state.buzzed = False
                 st.session_state.answer_key += 1
-                page.empty()
                 st.rerun()
 
     else:
         if st.session_state.word_number < len(words):
             time.sleep(0.3)
             st.session_state.word_number += 1
-            page.empty()
             st.rerun()
         else:
             st.session_state.buzzed = True
             st.session_state.message = "End of question. Enter your final answer."
             st.session_state.answer_key += 1
-            page.empty()
             st.rerun()
