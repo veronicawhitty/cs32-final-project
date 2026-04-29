@@ -3,9 +3,9 @@ import random
 import time
 import streamlit as st
 import Protobowl as pb
-# COPY AND PASTE TO RUN THIS FILE: streamlit run /workspaces/cs32-final-project/StreamlitApp.py
+# COPY AND PASTE TO RUN THIS FILE: streamlit run Streamlit.py
 
-st.title("CS32 Final Project: Python Protobowl)
+st.title("CS32 Final Project: Python Protobowl")
 
 if "started" not in st.session_state:
     st.session_state.started = False
