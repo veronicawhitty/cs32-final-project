@@ -52,3 +52,7 @@ else:
     st.write(" ".join(new_words))
 
     if st.button("Buzz"):
+        st.session_state.buzzed = True
+        st.session_state.message = "[BUZZ!]"
+        st.rerun()
+        
