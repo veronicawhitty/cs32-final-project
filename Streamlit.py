@@ -115,18 +115,18 @@ if st.session_state.buzzed:
         if answer.strip().lower() == "quit":
             final_score = st.session_state.score
 
-        # reset everything
-        st.session_state.started = False
-        st.session_state.ready_to_read = False
-        st.session_state.questions = []
-        st.session_state.question_number = 0
-        st.session_state.word_number = 0
-        st.session_state.score = 0
-        st.session_state.buzzed = False
-        st.session_state.message = f"Game exited. Final score: {final_score}"
-        st.session_state.answer_key += 1
+            # Reset everything
+            st.session_state.started = False
+            st.session_state.ready_to_read = False
+            st.session_state.questions = []
+            st.session_state.question_number = 0
+            st.session_state.word_number = 0
+            st.session_state.score = 0
+            st.session_state.buzzed = False
+            st.session_state.message = f"Game exited. Final score: {final_score}"
+            st.session_state.answer_key += 1
 
-    st.rerun()
+            st.rerun()
 
         result = pb.check_answer(answer, question["answers"], question["prompts"])
 
