@@ -55,4 +55,12 @@ else:
         st.session_state.buzzed = True
         st.session_state.message = "[BUZZ!]"
         st.rerun()
-        
+
+    if st.session_state.message:
+        st.info(st.session_state.message)
+
+    if st.session_state.buzzed:
+        answer = st.text_input("Your answer:")
+
+        if st.button("Submit"):
+            
