@@ -1,15 +1,15 @@
 ### StreamlitApp.py
-# https://cs32pythonprotobowl.streamlit.app/
+# TO RUN CODE, COPY AND PASTE THE FOLLOWING URL INTO YOUR PREFERRED BROWSER: https://cs32pythonprotobowl.streamlit.app/
+# OR COPY AND PASTE THE FOLLOWING TO RUN THIS FILE AND ACCESS THE LINK ABOVE: streamlit run Streamlit.py
 
 import random
 import time
 import streamlit as st
 import Protobowl as pb
-# COPY AND PASTE TO RUN THIS FILE: streamlit run Streamlit.py
 
 st.set_page_config(
     page_title = "Python Protobowl",
-    page_icon = "icon.png")
+    page_icon = "icon.png") # CHAT GPT ASSISTED CODE (I thought it was really cool to customize the tab iconography, too!!)
 # st.image("logo.png", width=100)
 st.title("CS32 Final Project: Python Protobowl")
 
@@ -26,10 +26,10 @@ if "started" not in st.session_state:
     st.session_state.message = ""
     st.session_state.answer_key = 0
 
-intro_area = st.empty()
+intro_area = st.empty() # CHAT GPT ASSISTED CODE
 
 if not st.session_state.started:
-    with intro_area.container():
+    with intro_area.container(): # CHAT GPT ASSISTED CODE
         demo_mode = st.checkbox("Demo mode", value=True)
 
         st.write("Welcome to Python Protobowl: Harvard Edition!")
@@ -40,7 +40,7 @@ if not st.session_state.started:
         st.write("To end the game, buzz in to any question and type 'quit'.")
 
         if st.button("Start game"):
-            questions = pb.load_questions("questions.csv")
+            questions = pb.load_questions("questions.csv") # CHAT GPT ASSISTED CODE
 
             if demo_mode:
                 questions = pb.select_demo_questions(questions)
@@ -60,13 +60,13 @@ if not st.session_state.started:
             st.session_state.message = ""
             st.session_state.answer_key += 1
 
-            intro_area.empty()
+            intro_area.empty() # CHAT GPT ASSISTED CODE
             time.sleep(0.2)
             st.rerun()
 
-    st.stop()
+    st.stop() # CHAT GPT ASSISTED CODE
 
-intro_area.empty()
+intro_area.empty() # CHAT GPT ASSISTED CODE
 
 if st.session_state.game_over:
     st.success(f"Game over! Final score: {st.session_state.final_score}")
@@ -85,7 +85,7 @@ if st.session_state.game_over:
         st.session_state.answer_key += 1
         st.rerun()
 
-    st.stop()
+    st.stop() # CHAT GPT ASSISTED CODE
 
 if not st.session_state.ready_to_read:
     st.session_state.ready_to_read = True
@@ -114,19 +114,13 @@ if not st.session_state.buzzed:
 if st.session_state.message:
     st.info(st.session_state.message)
 
-answer_area = st.empty()
+answer_area = st.empty() # CHAT GPT ASSISTED CODE
 
 if st.session_state.buzzed:
-    with answer_area.container():
-        answer = st.text_input(
-            "Your answer:",
-            key=f"answer_{st.session_state.answer_key}"
-        )
+    with answer_area.container(): # CHAT GPT ASSISTED CODE
+        answer = st.text_input("Your answer:", key=f"answer_{st.session_state.answer_key}")
 
-        submit = st.button(
-            "Submit",
-            key=f"submit_{st.session_state.answer_key}"
-        )
+        submit = st.button("Submit", key=f"submit_{st.session_state.answer_key}")
 
     if submit:
         if answer.strip().lower() == "quit":
@@ -135,7 +129,7 @@ if st.session_state.buzzed:
             st.session_state.ready_to_read = False
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
-            answer_area.empty()
+            answer_area.empty() # CHAT GPT ASSISTED CODE
             st.rerun()
 
         result = pb.check_answer(answer, question["answers"], question["prompts"])
@@ -147,43 +141,35 @@ if st.session_state.buzzed:
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
                 points = 15
-                st.session_state.message = (
-                    f"POWER! +15 points. The correct answer was "
-                    f"{question['display_answers']}."
-                )
+                st.session_state.message = (f"POWER! +15 points. The correct answer was "f"{question['display_answers']}.")
             else:
                 points = 10
-                st.session_state.message = (
-                    f"Correct! +10 points. The correct answer was "
-                    f"{question['display_answers']}."
-                )
+                st.session_state.message = (f"Correct! +10 points. The correct answer was "f"{question['display_answers']}.")
 
             st.session_state.score += points
             st.session_state.question_number += 1
             st.session_state.word_number = 1
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
-            answer_area.empty()
+            answer_area.empty() # CHAT GPT ASSISTED CODE
             st.rerun()
 
         elif result == "prompt":
             user_guess = answer.strip()
-            st.session_state.message = (
-                f'PROMPT! "{user_guess}" is too vague — please be more specific.'
-            )
+            st.session_state.message = (f'PROMPT! "{user_guess}" is too vague — please be more specific.')
             st.session_state.answer_key += 1
-            answer_area.empty()
+            answer_area.empty() # CHAT GPT ASSISTED CODE
             st.rerun()
 
         else:
             st.session_state.message = "Incorrect. Continuing to read the question."
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
-            answer_area.empty()
+            answer_area.empty() # CHAT GPT ASSISTED CODE
             st.rerun()
 
 else:
-    answer_area.empty()
+    answer_area.empty() # CHAT GPT ASSISTED CODE
 
     if st.session_state.word_number < len(words):
         time.sleep(0.3)
