@@ -124,11 +124,14 @@ if st.session_state.question_number >= len(st.session_state.questions):
 question = st.session_state.questions[st.session_state.question_number]
 words = question["text"].split()
 
+# Display the current score and the portion of the question revealed so far
 st.subheader(f"Score: {st.session_state.score}")
 
 new_words = words[:st.session_state.word_number]
 st.write(" ".join(new_words))
 
+# BUZZ BUTTON
+# The user can buzz while the question is still being read
 if not st.session_state.buzzed:
     if st.button("Buzz"):
         st.session_state.buzzed = True
