@@ -53,15 +53,18 @@ The game is fully playable in the terminal. Core mechanics (buzzing, scoring, an
 ## External Contributors and Use of AI Tools
 I used ChatGPT as a supplementary tool during development of both protobowl.py and streamlit.py.
 
-In protobowl.py, I used it to:
-- Help debug and refine parts of my code (specifically, how to create a 'demo mode' for my code explanations videos)
-- Identify a pesky indentation problem with my for loops in Step 4
-- Think through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
+In protobowl.py, ChatGPT assisted on:
+- Helping debug and refine parts of my code (specifically, how to create a 'demo mode' for my code explanations videos)
+- Identifying a pesky indentation problem with my for loops in Step 4
+- Thinking through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
 
-In `App.py`, I used ChatGPT more substantially because Streamlit’s rerun model was new to me. It helped me understand how to use `st.session_state` to preserve game progress across reruns, how to use `st.empty()` containers to clear or replace interface elements, and how to prevent buttons and input boxes from persisting after they were no longer relevant. It also helped me implement the start screen, quit flow, final score screen, restart button, and page configuration. Specific areas where ChatGPT was implemented in this code are to:
-- Resolve persistent “floating” UI elements (such as buttons and input fields) caused by Streamlit’s rerun behavior
-- Ensure that the intro screen (rules and start button) properly disappears once gameplay begins
-- Implement a clean quit flow that displays the user’s final score and allows them to restart the game without refreshing the page
+In `app.py`, I used ChatGPT more substantially because Streamlit’s rerun model was new to me. ChatGPT helped me understand how to use `st.session_state` to preserve game progress across reruns and how to use `st.empty()` containers to clear or replace interface elements. It also helped me resolve issues where buttons and input fields continued appearing after they were no longer relevant.
+
+Specific areas of `app.py` where ChatGPT assisted include:
+- Resolving persistent “floating” UI elements, such as buttons and input fields, caused by Streamlit’s rerun behavior
+- Ensuring that the intro screen, including the rules and start button, properly disappears once gameplay begins
+- Implementing a clean quit flow that displays the user’s final score and allows them to restart the game without refreshing the page
+- Setting up the final score screen, restart button, and page configuration
 
 I also used a tutorial from Geeksforgeeks.org to better understand the flush() method.
 
