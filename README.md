@@ -3,6 +3,13 @@
 ## Project Overview
 This project aims to recreate the core experience of the JavaScript-operated Protobowl.com as an interactive trivia game that runs entirely in the Python terminal. In Python Terminal Protobowl, players are shown questions incementally word-by-word, can "buzz in" at any time, and receive immediate feedback on their answers. The goal is to recreate the core gameplay experience of Protobowl in a simplified form that works entirely in the Python terminal, modifying the aspects of the traditional game when needed to accommodate the irregular formatting that Python requires.
 
+The project includes two playable versions:
+
+1. A terminal-based version in `Protobowl.py`
+2. A browser-based Streamlit version in `App.py`, also accessible at the following link: https://cs32pythonprotobowl.streamlit.app/
+
+Both versions use the same question database, answer-checking logic, prompting system, and power-scoring system.
+
 ## Motivation
 Quizbowl was one of my favorite extracurricular activities in high school, and one of the highlights of the "Quizbowl experience" was indubitably competing with friends with Protobowl.com, a popular online practice tool for Quizbowl competitors. I wanted to build a project that captures the fast-paced, competitive feel of Quizbowl while exploring how real-time interaction between the user and Python can be handled in a terminal environment (via real-time buzzing.) This project also allows me to work on input handling, timing, and game state management in Python, all diciplines I am intrigued by.
 
@@ -53,7 +60,7 @@ The game is fully playable in the terminal. Core mechanics (buzzing, scoring, an
 ## External Contributors and Use of AI Tools
 I used ChatGPT as a supplementary tool during development of both protobowl.py and streamlit.py.
 
-In protobowl.py, ChatGPT assisted on:
+Specific areas of `protobowl.py` where ChatGPT assisted include:
 - Helping debug and refine parts of my code (specifically, how to create a 'demo mode' for my code explanations videos)
 - Identifying a pesky indentation problem with my for loops in Step 4
 - Thinking through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
