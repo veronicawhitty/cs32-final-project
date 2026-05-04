@@ -36,6 +36,7 @@ if "started" not in st.session_state:
 # Placeholder (allows the intro screen to be cleared once the game begins)
 intro_area = st.empty() # CHAT GPT ASSISTED CODE
 
+# Sets up the intro/start screen
 if not st.session_state.started:
     with intro_area.container(): # CHAT GPT ASSISTED CODE
         demo_mode = st.checkbox("Demo mode", value=True)
@@ -48,14 +49,18 @@ if not st.session_state.started:
         st.write("To end the game, buzz in to any question and type 'quit'.")
 
         if st.button("Start game"):
+            # Load the question database using the helper function from Protobowl.py
             questions = pb.load_questions("questions.csv") # CHAT GPT ASSISTED CODE
 
+            # Demo mode uses a fixed set of showcase questions so that testing and video demonstrations are consistent
             if demo_mode:
                 questions = pb.select_demo_questions(questions)
             else:
+                # Uses a fixed random seed so the shuffled order is reproducible
                 random.seed(4)
                 questions = random.sample(questions, len(questions))
 
+            # Initialize a new game
             st.session_state.started = True
             st.session_state.ready_to_read = False
             st.session_state.game_over = False
@@ -68,12 +73,17 @@ if not st.session_state.started:
             st.session_state.message = ""
             st.session_state.answer_key += 1
 
+            # Changes the key so the answer box is fresh when gameplay begins
+
+            # Removes the intro screen and reruns the page into gameplay mode
             intro_area.empty() # CHAT GPT ASSISTED CODE
             time.sleep(0.2)
             st.rerun()
 
+    # Stops here so the rest of the game does not render before start button is clicked
     st.stop() # CHAT GPT ASSISTED CODE
 
+# Once the game has started, make sure the intro screen is gone
 intro_area.empty() # CHAT GPT ASSISTED CODE
 
 if st.session_state.game_over:
@@ -93,6 +103,7 @@ if st.session_state.game_over:
         st.session_state.answer_key += 1
         st.rerun()
 
+    # Stops here so the rest of the game does not render before start button is clicked
     st.stop() # CHAT GPT ASSISTED CODE
 
 if not st.session_state.ready_to_read:
