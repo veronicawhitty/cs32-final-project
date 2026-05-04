@@ -11,7 +11,7 @@ The project includes two playable versions:
 Both versions use the same question database, answer-checking logic, prompting system, and power-scoring system.
 
 ## Motivation
-Quizbowl was one of my favorite extracurricular activities in high school, and one of the highlights of the "Quizbowl experience" was indubitably competing with friends with Protobowl.com, a popular online practice tool for Quizbowl competitors. I wanted to build a project that captures the fast-paced, competitive feel of Quizbowl while exploring how real-time interaction between the user and Python can be handled in a terminal environment (via real-time buzzing.) This project also allows me to work on input handling, timing, and game state management in Python, all diciplines I am intrigued by.
+Quizbowl was one of my favorite extracurricular activities in high school, and one of the highlights of the "Quizbowl experience" was indubitably competing with friends with Protobowl.com, a popular online practice tool for Quizbowl competitors. I wanted to build a project that captures the fast-paced, competitive feel of Quizbowl while exploring how real-time interaction between the user and Python can be handled in a terminal environment (via real-time buzzing.) This project also allows me to work on input handling, timing, and game state management in Python, all disciplines I am intrigued by.
 
 As the project developed, I also added a browser-based Streamlit version in order to make the game more accessible and easier to play outside the terminal. This project allowed me to work on input handling, timing, game state management, answer checking, and user interface design in Python. Through it, I learned how to use the Streamlit package, which was quite rewarding.
 
@@ -27,7 +27,7 @@ The game includes the following key features:
 - **Buzzing system**: Users can interrupt the question at any time using a keyboard interrupt.
 - **Power scoring**: If the user answers early enough (before a marked point in the question), they earn 15 points instead of 10.
 - **Answer standardization**: User input is normalized to allow flexible matching (ignoring capitalization and punctuation).
-- **Multiple acceptable answers**: Questions can have several valid answers stored in the CSV file. Common mispellings are accounted for on particularly difficult questions.
+- **Multiple acceptable answers**: Questions can have several valid answers stored in the CSV file. Common misspellings are accounted for on particularly difficult questions.
 - **Prompting system**: If a user gives a partially correct answer, the program asks them to be more specific instead of marking it wrong.
 - **Demo mode**: A fixed set of questions can be selected for consistent testing and demonstration.
 
@@ -61,16 +61,16 @@ The game is fully playable in the terminal. Core mechanics (buzzing, scoring, an
 - Score updates as the game is played, with points awarded in 15s or 10s based on answer speed
 
 ## External Contributors and Use of AI Tools
-I used ChatGPT as a supplementary tool during development of both protobowl.py and streamlit.py.
+I used ChatGPT as a supplementary tool during development of both `Protobowl.py` and `App.py`.
 
-Specific areas of `protobowl.py` where ChatGPT assisted include:
+Specific areas of `Protobowl.py` where ChatGPT assisted include:
 - Helping debug and refine parts of my code (specifically, how to create a 'demo mode' for my code explanations videos)
 - Identifying a pesky indentation problem with my for loops in Step 4
 - Thinking through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
 
-In `app.py`, I used ChatGPT more substantially because Streamlit’s rerun model was new to me. ChatGPT helped me understand how to use `st.session_state` to preserve game progress across reruns and how to use `st.empty()` containers to clear or replace interface elements. It also helped me resolve issues where buttons and input fields continued appearing after they were no longer relevant.
+In `App.py`, I used ChatGPT more substantially because Streamlit’s rerun model was new to me. ChatGPT helped me understand how to use `st.session_state` to preserve game progress across reruns and how to use `st.empty()` containers to clear or replace interface elements. It also helped me resolve issues where buttons and input fields continued appearing after they were no longer relevant.
 
-Specific areas of `app.py` where ChatGPT assisted include:
+Specific areas of `App.py` where ChatGPT assisted include:
 - Resolving persistent “floating” UI elements, such as buttons and input fields, caused by Streamlit’s rerun behavior
 - Ensuring that the intro screen, including the rules and start button, properly disappears once gameplay begins
 - Implementing a clean quit flow that displays the user’s final score and allows them to restart the game without refreshing the page
