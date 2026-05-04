@@ -58,7 +58,7 @@ In protobowl.py, I used it to:
 - Identify a pesky indentation problem with my for loops in Step 4
 - Think through how to structure the multiple-buzz feature so that code doesn't crash when a user buzzes twice
 
-In streamlit.py, I used it to:
+In `App.py`, I used ChatGPT more substantially because Streamlit’s rerun model was new to me. It helped me understand how to use `st.session_state` to preserve game progress across reruns, how to use `st.empty()` containers to clear or replace interface elements, and how to prevent buttons and input boxes from persisting after they were no longer relevant. It also helped me implement the start screen, quit flow, final score screen, restart button, and page configuration. Specific areas where ChatGPT was implemented in this code are to:
 - Resolve persistent “floating” UI elements (such as buttons and input fields) caused by Streamlit’s rerun behavior
 - Ensure that the intro screen (rules and start button) properly disappears once gameplay begins
 - Implement a clean quit flow that displays the user’s final score and allows them to restart the game without refreshing the page
