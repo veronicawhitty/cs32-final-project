@@ -7,25 +7,33 @@ import time
 import streamlit as st
 import Protobowl as pb
 
+
+# Customize the brower tab title and icon
 st.set_page_config(
     page_title = "Python Protobowl",
     page_icon = "icon.png") # CHAT GPT ASSISTED CODE (I thought it was really cool to customize the tab iconography, too!!)
 # st.image("logo.png", width=100)
 st.title("CS32 Final Project: Python Protobowl")
 
+# Streamlit reruns the whole file every time the user interacts with the page.
+# Because of that, st.session_state is used to remember the game's progress across reruns.
 if "started" not in st.session_state:
     st.session_state.started = False
     st.session_state.ready_to_read = False
     st.session_state.game_over = False
     st.session_state.final_score = 0
+    # Game data and progress trackers
     st.session_state.questions = []
     st.session_state.question_number = 0
     st.session_state.word_number = 0
     st.session_state.score = 0
+    # Tracks whether the user has buzzed and what message should be displayed
     st.session_state.buzzed = False
     st.session_state.message = ""
+    # Resets the answer input box after each submission
     st.session_state.answer_key = 0
 
+# Placeholder (allows the intro screen to be cleared once the game begins)
 intro_area = st.empty() # CHAT GPT ASSISTED CODE
 
 if not st.session_state.started:
