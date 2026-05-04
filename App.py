@@ -36,7 +36,7 @@ if "started" not in st.session_state:
 # Placeholder (allows the intro screen to be cleared once the game begins)
 intro_area = st.empty() # CHAT GPT ASSISTED CODE
 
-# Sets up the intro/start screen
+# Sets up the INTRO/START SCREEN
 if not st.session_state.started:
     with intro_area.container(): # CHAT GPT ASSISTED CODE
         demo_mode = st.checkbox("Demo mode", value=True)
@@ -86,10 +86,12 @@ if not st.session_state.started:
 # Once the game has started, make sure the intro screen is gone
 intro_area.empty() # CHAT GPT ASSISTED CODE
 
+# Sets up the GAME OVER/QUIT SCREEN
 if st.session_state.game_over:
     st.success(f"Game over! Final score: {st.session_state.final_score}")
 
     if st.button("Start over"):
+        # Reset all game state so the user can start again without refreshing
         st.session_state.started = False
         st.session_state.ready_to_read = False
         st.session_state.game_over = False
@@ -100,21 +102,25 @@ if st.session_state.game_over:
         st.session_state.score = 0
         st.session_state.buzzed = False
         st.session_state.message = ""
+        # Reset the answer input field
         st.session_state.answer_key += 1
         st.rerun()
 
-    # Stops here so the rest of the game does not render before start button is clicked
+    # Stops here so no active-game elements appear after the game ends
     st.stop() # CHAT GPT ASSISTED CODE
 
+# Separates the start button rerun from the beginning of incremental question reading
 if not st.session_state.ready_to_read:
     st.session_state.ready_to_read = True
     st.rerun()
 
+# If there are no more questions, end the game and save the final score
 if st.session_state.question_number >= len(st.session_state.questions):
     st.session_state.final_score = st.session_state.score
     st.session_state.game_over = True
     st.rerun()
 
+# Get the current question and split it into words so it can be revealed incrementally
 question = st.session_state.questions[st.session_state.question_number]
 words = question["text"].split()
 
