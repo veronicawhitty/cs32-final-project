@@ -136,14 +136,18 @@ if not st.session_state.buzzed:
     if st.button("Buzz"):
         st.session_state.buzzed = True
         st.session_state.message = "BUZZ!"
+        # Change the input key so Streamlit creates a fresh text input box
         st.session_state.answer_key += 1
         st.rerun()
 
+# Display feedback such as "BUZZ!", "Correct!", or "Incorrect"
 if st.session_state.message:
     st.info(st.session_state.message)
 
+# Placeholder for the answer input area (makes it possible to clear the answer box after the user submits)
 answer_area = st.empty() # CHAT GPT ASSISTED CODE
 
+# ANSWER SUBMISSION
 if st.session_state.buzzed:
     with answer_area.container(): # CHAT GPT ASSISTED CODE
         answer = st.text_input("Your answer:", key=f"answer_{st.session_state.answer_key}")
@@ -151,6 +155,7 @@ if st.session_state.buzzed:
         submit = st.button("Submit", key=f"submit_{st.session_state.answer_key}")
 
     if submit:
+        # Allows the user to quit by typing "quit" after buzzing
         if answer.strip().lower() == "quit":
             st.session_state.final_score = st.session_state.score
             st.session_state.game_over = True
@@ -160,8 +165,10 @@ if st.session_state.buzzed:
             answer_area.empty() # CHAT GPT ASSISTED CODE
             st.rerun()
 
+        # Uses the answer-checking function from Protobowl.py
         result = pb.check_answer(answer, question["answers"], question["prompts"])
 
+        # Estimates where the user buzzed in the question (used to determine whether the answer earns power points)
         location_when_buzzed = 0
         for i in range(st.session_state.word_number):
             location_when_buzzed += len(words[i]) + 1
