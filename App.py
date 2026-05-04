@@ -1,6 +1,6 @@
 ### StreamlitApp.py
 # TO RUN CODE, COPY AND PASTE THE FOLLOWING URL INTO YOUR PREFERRED BROWSER: https://cs32pythonprotobowl.streamlit.app/
-# OR COPY AND PASTE THE FOLLOWING TO RUN THIS FILE AND ACCESS THE LINK ABOVE: streamlit run Streamlit.py
+# OR COPY AND PASTE THE FOLLOWING TO RUN THIS FILE AND ACCESS THE LINK ABOVE: streamlit run App.py
 
 import random
 import time
