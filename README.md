@@ -26,6 +26,16 @@ The program keeps track of the user's score across multiple questions and runs u
 - Python (CS32/CS50 IDE)
 - Terminal interface
 
+## Files
+- `Protobowl.py`
+  Contains the core game logic, including loading questions, standardizing answers, checking answers, scoring, demo mode, and the terminal version of the game.
+- `App.py`
+  Contains the Streamlit interface for the browser-based version of the game.
+- `questions.csv`
+  Stores the question database used by the game.
+- `icon.png`
+  Used as the browser tab icon for the Streamlit app.
+
 ## Installation
 - Make sure you have Python 3 and questions.csv installed on your device
 - Place `questions.csv` in the same directory as `Protobowl.py` in order to access questions during gameplay
