@@ -175,12 +175,15 @@ if st.session_state.buzzed:
 
         if result == "correct":
             if location_when_buzzed < question["power_index"]:
+                # Awards 15 points if the player buzzed before the power mark
                 points = 15
                 st.session_state.message = (f"POWER! +15 points. The correct answer was "f"{question['display_answers']}.")
             else:
+                # Otherwise awards the player 10 points for correct answers
                 points = 10
                 st.session_state.message = (f"Correct! +10 points. The correct answer was "f"{question['display_answers']}.")
 
+            # Updates the score and advances to the next question
             st.session_state.score += points
             st.session_state.question_number += 1
             st.session_state.word_number = 1
@@ -190,6 +193,7 @@ if st.session_state.buzzed:
             st.rerun()
 
         elif result == "prompt":
+            # A prompt means the answer is partially correct but too vague, so the player gets another chance to be more specific here
             user_guess = answer.strip()
             st.session_state.message = (f'PROMPT! "{user_guess}" is too vague — please be more specific.')
             st.session_state.answer_key += 1
@@ -197,20 +201,24 @@ if st.session_state.buzzed:
             st.rerun()
 
         else:
+            # Incorrect answers do not end the question (the question continues from where it left off)
             st.session_state.message = "Incorrect. Continuing to read the question."
             st.session_state.buzzed = False
             st.session_state.answer_key += 1
             answer_area.empty() # CHAT GPT ASSISTED CODE
             st.rerun()
 
+# QUESTION READING
 else:
     answer_area.empty() # CHAT GPT ASSISTED CODE
 
     if st.session_state.word_number < len(words):
+        # Reveals one additional word every 0.3 seconds
         time.sleep(0.3)
         st.session_state.word_number += 1
         st.rerun()
     else:
+        # Once the whole question has been revealed, forces the user to input a final answer attempt
         st.session_state.buzzed = True
         st.session_state.message = "End of question. Enter your final answer."
         st.session_state.answer_key += 1
