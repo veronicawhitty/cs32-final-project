@@ -30,8 +30,11 @@ The game includes the following key features:
 The program keeps track of the user's score across multiple questions and runs until the user chooses to quit.
 
 ## Tech Stack
-- Python (CS32/CS50 IDE)
+- Python 3 (CS32/CS50 IDE)
+- CSV file input
+- Streamlit package
 - Terminal interface
+- Browser-based interface
 
 ## Files
 - `Protobowl.py`
@@ -42,10 +45,6 @@ The program keeps track of the user's score across multiple questions and runs u
   Stores the question database used by the game.
 - `icon.png`
   Used as the browser tab icon for the Streamlit app.
-
-## Installation
-- Make sure you have Python 3 and questions.csv installed on your device
-- Place `questions.csv` in the same directory as `Protobowl.py` in order to access questions during gameplay
 
 ## How to Use
 The game is fully playable in the terminal. Core mechanics (buzzing, scoring, answer checking) are implemented and tested.
@@ -77,6 +76,20 @@ I also used a tutorial from Geeksforgeeks.org to better understand the flush() m
 
 All computational logic and core structural code is done by me.
 
-
 ## Credits
 Inspired by Protobowl and other quizbowl-style trivia games. An extra-special shoutout to Kevin Kwok and Ben Vest, the original programmers behind Protobowl.com, as well as Geoffrey Wu, the creator of the more modern and user-friendly QBReader interface, which has effectively replaced Protobowl in utility and thus serves as an additional reference point for this project.
+
+## Installation
+To run the project locally, make sure you have Python 3 installed.
+
+Clone or download the repository, then make sure the following files are in the same folder:
+
+- `Protobowl.py`
+- `App.py`
+- `questions.csv` (in order to access questions during gameplay)
+- `icon.png`
+
+If you want to run the Streamlit version locally, install Streamlit:
+
+```bash
+pip install streamlit
