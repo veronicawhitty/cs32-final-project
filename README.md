@@ -1,11 +1,11 @@
-# CS32 Final Project: Python Terminal Protobowl
+# CS32 Final Project: Python Protobowl
 
 ## Project Overview
-This project aims to recreate the core experience of the JavaScript-operated Protobowl.com as an interactive trivia game that runs entirely in the Python terminal. In Python Terminal Protobowl, players are shown questions incementally word-by-word, can "buzz in" at any time, and receive immediate feedback on their answers. The goal is to recreate the core gameplay experience of Protobowl in a simplified form that works entirely in the Python terminal, modifying the aspects of the traditional game when needed to accommodate the irregular formatting that Python requires.
+This project recreates the core experience of the JavaScript-operated Protobowl.com as an interactive Quizbowl-style trivia game written in Python. In Python Protobowl, players are shown questions incrementally, word by word, can "buzz in" before the question is finished, and receive immediate feedback on their answers.
 
 The project includes two playable versions:
 
-1. A terminal-based version in `Protobowl.py`
+1. A terminal-based version in `Protobowl.py`, which runs entirely in the terminal without any need for additional downloads
 2. A browser-based Streamlit version in `App.py`, also accessible at the following link: https://cs32pythonprotobowl.streamlit.app/
 
 Both versions use the same question database, answer-checking logic, prompting system, and power-scoring system.
@@ -13,10 +13,14 @@ Both versions use the same question database, answer-checking logic, prompting s
 ## Motivation
 Quizbowl was one of my favorite extracurricular activities in high school, and one of the highlights of the "Quizbowl experience" was indubitably competing with friends with Protobowl.com, a popular online practice tool for Quizbowl competitors. I wanted to build a project that captures the fast-paced, competitive feel of Quizbowl while exploring how real-time interaction between the user and Python can be handled in a terminal environment (via real-time buzzing.) This project also allows me to work on input handling, timing, and game state management in Python, all diciplines I am intrigued by.
 
-## Project Functionality and Intended Features
-This project implements a terminal-based Quizbowl-style trivia game inspired by Protobowl.com. The program reads questions from a CSV database and presents them to the user word-by-word, simulating the incremental reveal used in real Quizbowl matches.
+As the project developed, I also added a browser-based Streamlit version in order to make the game more accessible and easier to play outside the terminal. This project allowed me to work on input handling, timing, game state management, answer checking, and user interface design in Python. Through it, I learned how to use the Streamlit package, which was quite rewarding.
 
-At any point while the question is being read, the user can "buzz in" by pressing Ctrl+C. The program then pauses the question and prompts the user for an answer.
+## Project Functionality and Intended Features
+This project implements a Quizbowl-style trivia game inspired by Protobowl.com. The program reads questions from a CSV database and presents them to the user word by word, simulating the incremental reveal used in real Quizbowl matches.
+
+In the terminal version, the user can buzz in by pressing Ctrl+C while the question is being read. The program then pauses the question and prompts the user for an answer.
+
+In the Streamlit version, the user can buzz by clicking a button in the browser. Because Streamlit reruns the script after user interactions, this version uses `st.session_state` to keep track of the current question, score, buzz status, and revealed words.
 
 The game includes the following key features:
 - **Incremental question reading**: Questions are displayed one word at a time to simulate live gameplay.
